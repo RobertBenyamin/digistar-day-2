@@ -4,7 +4,7 @@ class UserHandler {
     static async getAllUsers(req, res) {
         try {
             const users = await UserUsecase.getAllUsers();
-            res.json(users);
+            res.status(200).json(users);
         } catch (err) {
             res.status(500).json({ error: 'Failed to fetch users' });
         }
@@ -15,7 +15,7 @@ class UserHandler {
             const userId = req.params.id;
             const user = await UserUsecase.getUserById(userId);
             if (user) {
-                res.json(user);
+                res.status(200).json(user);
             } else {
                 res.status(404).json({ error: 'User not found' });
             }
@@ -49,7 +49,7 @@ class UserHandler {
 
             const updatedUser = await UserUsecase.updateUser(userId, name, password);
             if (updatedUser) {
-                res.json(updatedUser);
+                res.status(200).json(updatedUser);
             } else {
                 res.status(404).json({ error: 'User not found' });
             }
@@ -63,7 +63,7 @@ class UserHandler {
             const userId = req.params.id;
             const deletedUser = await UserUsecase.deleteUser(userId);
             if (deletedUser) {
-                res.json({ message: 'Successfully deleted user' });
+                res.status(200).json({ message: 'Successfully deleted user' });
             } else {
                 res.status(404).json({ error: 'User not found' });
             }
