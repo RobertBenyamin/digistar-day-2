@@ -1,34 +1,25 @@
-let users = [];
+const User = require('../models/userModel');
 
 class UserRepository {
-    static getAllUsers() {
-        return users;
+    static async getAllUsers() {
+        return User.find();
     }
 
-    static getUserById(id) {
-        return users.find(u => u.id === id);
+    static async getUserById(userId) {
+        return User.findOne({ userId });
     }
 
-    static createUser(user) {
-        users.push(user);
-        return user;
+    static async createUser(userData) {
+        const user = new User(userData);
+        return user.save();
     }
 
-    static updateUser(id, updatedUser) {
-        const index = users.findIndex(u => u.id === id);
-        if (index !== -1) {
-            users[index] = { ...users[index], ...updatedUser };
-            return users[index];
-        }
-        return null;
+    static async updateUser(userId, updatedUser) {
+        return User.findOneAndUpdate({ userId }, updatedUser, { new: true });
     }
 
-    static deleteUser(id) {
-        const index = users.findIndex(u => u.id === id);
-        if (index !== -1) {
-            return users.splice(index, 1);
-        }
-        return null;
+    static async deleteUser(userId) {
+        return User.findOneAndDelete({ userId });
     }
 }
 
