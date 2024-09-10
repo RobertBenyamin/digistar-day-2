@@ -1,12 +1,17 @@
 const express = require('express');
 const UserHandler = require('../handlers/userHandler');
+const verifyToken = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
-router.get('/users', UserHandler.getAllUsers);
-router.get('/users/:id', UserHandler.getUserById);
-router.post('/users', UserHandler.createUser);
-router.put('/users/:id', UserHandler.updateUser);
-router.delete('/users/:id', UserHandler.deleteUser);
+// Public endpoints
+router.post('/register', UserHandler.createUser);
+router.post('/login', UserHandler.loginUser);
+
+// Protected endpoints
+router.get('/users', verifyToken, UserHandler.getAllUsers);
+router.get('/users/:id', verifyToken, UserHandler.getUserById);
+router.put('/users/:id', verifyToken, UserHandler.updateUser);
+router.delete('/users/:id', verifyToken, UserHandler.deleteUser);
 
 module.exports = router;
