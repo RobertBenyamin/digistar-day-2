@@ -22,6 +22,14 @@ class UserUsecase {
     static async deleteUser(id) {
         return UserRepository.deleteUser(id);
     }
+
+    static async loginUser(name, password) {
+        return UserRepository.loginUser(name, password);
+    }
+    
+    static async registerUser(name, password) {
+        return UserRepository.registerUser(name, password);
+    }
 }
 
 module.exports = UserUsecase;
