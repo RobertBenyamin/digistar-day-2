@@ -11,11 +11,15 @@ const orderSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    product: {
+    name: {
         type: String,
         required: true
     },
-    amount: {
+    quantity: {
+        type: Number,
+        required: true
+    },
+    price: {
         type: Number,
         required: true
     },
