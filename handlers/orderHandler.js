@@ -27,13 +27,13 @@ class OrderHandler {
 
     static async createOrder(req, res) {
         try {
-            const { userId, product, amount } = req.body;
+            const { userId, name, quantity, price } = req.body;
 
-            if (!userId || !product || !amount) {
+            if (!userId || !name || !quantity || !price) {
                 return res.status(400).json({ error: 'Missing required fields' });
             }
 
-            const newOrder = await OrderUsecase.createOrder(userId, product, amount);
+            const newOrder = await OrderUsecase.createOrder(userId, name, quantity, price);
             res.status(201).json(newOrder);
         } catch (err) {
             res.status(500).json({ error: 'Failed to create order' });
@@ -43,13 +43,13 @@ class OrderHandler {
     static async updateOrder(req, res) {
         try {
             const { id } = req.params;
-            const { product, amount, status } = req.body;
+            const { name, quantity, price, status } = req.body;
 
-            if (!product || !amount || !status) {
+            if (!name || !quantity || !price || !status) {
                 return res.status(400).json({ error: 'Missing required fields' });
             }
 
-            const updatedOrder = await OrderUsecase.updateOrder(id, product, amount, status);
+            const updatedOrder = await OrderUsecase.updateOrder(id, name, quantity, price, status);
 
             if (updatedOrder) {
                 res.status(200).json(updatedOrder);
