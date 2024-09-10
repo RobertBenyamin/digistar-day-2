@@ -31,10 +31,25 @@ class UserHandler {
                 return res.status(400).json({ error: 'Invalid request body' });
             }
 
-            const newUser = await UserUsecase.createUser(name, password);
+            const newUser = await UserUsecase.registerUser(name, password);
             res.status(201).json(newUser);
         } catch (err) {
             res.status(500).json({ error: 'Failed to create user' });
+        }
+    }
+
+    static async loginUser(req, res) {
+        try {
+            const { name, password } = req.body;
+
+            if (!name || !password) {
+                return res.status(400).json({ error: 'Invalid request body' });
+            }
+
+            const result = await UserUsecase.loginUser(name, password);
+            res.status(200).json(result);
+        } catch (err) {
+            res.status(401).json({ error: err.message });
         }
     }
 
