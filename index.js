@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const userRouter = require('./routers/userRouter');
+const orderRouter = require('./routers/orderRouter');
 require('dotenv').config();
 
 const app = express();
@@ -12,6 +13,7 @@ mongoose.connect('mongodb://localhost:27017/digistar')
 
 app.use(express.json());
 app.use(userRouter);
+app.use(orderRouter);
 
 app.use((req, res, next) => {
     res.status(404).json({ error: '404 not found' });
